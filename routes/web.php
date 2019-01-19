@@ -15,13 +15,13 @@
 //     return view('home');
 // });
 
-Route::view('/', 'home');
+Route::view('/', 'home')->name('home');
 
 // Route::get('/contact', function () {
 //     return view('contact');
 // });
 
-Route::view('/contact', 'contact');
+Route::view('/contact', 'contact')->name('contact');
 
 Route::get('/blog-post/{id}/{welcome?}', function ($id, $welcome = 1) {
     $pages = [
@@ -38,4 +38,4 @@ Route::get('/blog-post/{id}/{welcome?}', function ($id, $welcome = 1) {
         'data' => $pages[$id],
         'welcome' => $welcomes[$welcome],
     ]);
-});
+})->name('blog-post');
