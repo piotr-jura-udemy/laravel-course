@@ -14,6 +14,12 @@
         <li><a href="{{ route('posts.create') }}">Add Blog Post</a></li>
     </ul>
 
+    @if(session()->has('status'))
+        <p style="color: green">
+            {{ session()->get('status') }}
+        </p>
+    @endif
+
     @yield('content')
 </body>
 </html>
