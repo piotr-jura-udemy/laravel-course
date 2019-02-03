@@ -38,8 +38,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|max:100',
-            'content' => 'required'
+            'title' => 'required|max:100|min:5',
+            'content' => 'required|min:10'
         ]);
 
         $blogPost = new BlogPost();
