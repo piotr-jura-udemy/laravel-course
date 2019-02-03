@@ -39,16 +39,7 @@ class PostController extends Controller
     public function store(StorePost $request)
     {
         $validatedData = $request->validated();
-
-        dd($validatedData);
-
-        $blogPost = new BlogPost();
-        $validatedData['title'];
-        $validatedData['content'];
-        $blogPost->title = $request->input('title');
-        $blogPost->content = $request->input('content');
-        $blogPost->save();
-
+        $blogPost = BlogPost::create($validatedData);
         $request->session()->flash('status', 'Blog post was created!');
         
         return redirect()->route('posts.show', ['post' => $blogPost->id]);
