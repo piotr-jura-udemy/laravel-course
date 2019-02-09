@@ -61,4 +61,15 @@ class PostController extends Controller
 
         return redirect()->route('posts.show', ['post' => $post->id]);
     }
+
+    public function destroy(Request $request, $id) {
+        $post = BlogPost::findOrFail($id);
+        $post->delete();
+
+        // BlogPost::destroy($id);
+
+        $request->session()->flash('status', 'Blog post was deleted!');
+
+        return redirect()->route('posts.index');
+    }
 }
