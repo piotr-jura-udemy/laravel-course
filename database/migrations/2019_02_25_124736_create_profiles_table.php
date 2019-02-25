@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
-            $table->unsignedInteger('author_id');
+            $table->unsignedInteger('author_id')->unique();
             $table->foreign('author_id')->references('id')->on('authors');
         });
     }
