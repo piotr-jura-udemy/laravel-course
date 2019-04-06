@@ -14,7 +14,7 @@ class AddCascadeDeleteToCommentsTable extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
-            if (!env('DB_CONNECTION') === 'sqlite_testing') {
+            if (env('DB_CONNECTION') !== 'sqlite_testing') {
                 $table->dropForeign(['blog_post_id']);
             }
             
