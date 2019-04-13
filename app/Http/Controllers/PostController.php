@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\BlogPost;
 use App\Http\Requests\StorePost;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 // use Illuminate\Support\Facades\DB;
 
@@ -19,7 +18,7 @@ use Illuminate\Support\Facades\Gate;
 // ]
 class PostController extends Controller
 {
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware('auth')
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
@@ -47,7 +46,7 @@ class PostController extends Controller
         // comments_count
 
         return view(
-            'posts.index', 
+            'posts.index',
             ['posts' => BlogPost::withCount('comments')->get()]
         );
     }
@@ -62,7 +61,7 @@ class PostController extends Controller
     public function show($id)
     {
         return view('posts.show', [
-            'post' => BlogPost::with('comments')->findOrFail($id)
+            'post' => BlogPost::with('comments')->findOrFail($id),
         ]);
     }
 
@@ -75,6 +74,7 @@ class PostController extends Controller
     public function store(StorePost $request)
     {
         $validatedData = $request->validated();
+        $validatedData['user_id'] = $request->user()->id;
         $blogPost = BlogPost::create($validatedData);
         $request->session()->flash('status', 'Blog post was created!');
 

@@ -11,7 +11,7 @@ class BlogPost extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'user_id'];
 
     public function comments()
     {
@@ -22,7 +22,7 @@ class BlogPost extends Model
     {
         return $this->belongsTo('App\User');
     }
-    
+
     public static function boot()
     {
         parent::boot();
