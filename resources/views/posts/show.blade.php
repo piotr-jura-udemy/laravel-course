@@ -7,9 +7,9 @@
     <p>Added {{ $post->created_at->diffForHumans() }}</p>
 
     @if ((new Carbon\Carbon())->diffInMinutes($post->created_at) < 20)
-        @component('badge', ['type' => 'primary'])
+        @badge
             Brand new Post!
-        @endcomponent
+        @endbadge
     @endif
 
     <h4>Comments</h4>
