@@ -35,11 +35,11 @@ class PostController extends Controller
             return BlogPost::mostCommented()->take(5)->get();
         });
 
-        $mostActive = Cache::remember('mostCommented', 60, function() {
+        $mostActive = Cache::remember('mostActive', 60, function() {
             return User::withMostBlogPosts()->take(5)->get();
         });
 
-        $mostActiveLastMonth = Cache::remember('mostCommented', 60, function() {
+        $mostActiveLastMonth = Cache::remember('mostActiveLastMonth', 60, function() {
             return User::withMostBlogPostsLastMonth()->take(5)->get();
         });
 
