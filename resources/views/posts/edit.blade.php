@@ -2,7 +2,8 @@
 
 @section('content')
     <form method="POST" 
-          action="{{ route('posts.update', ['post' => $post->id]) }}">
+          action="{{ route('posts.update', ['post' => $post->id]) }}"
+          enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
