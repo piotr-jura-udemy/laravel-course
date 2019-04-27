@@ -7,6 +7,7 @@ use App\Http\Requests\StorePost;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 // [
 //     'show' => 'view',
@@ -121,6 +122,10 @@ class PostController extends Controller
             dump($file->getClientOriginalExtension());
 
             dump($file->store('thumbails'));
+            dump(Storage::disk('public')->putFile('thumbails', $file));
+
+            dump($file->storeAs('thumbails', $blogPost->id . '.'. $file->guessExtension()));
+            dump(Storage::disk('local')->putFileAs('thumbails', $file, $blogPost->id . '.' . $file->guessExtension()));
         }
         die;
 
