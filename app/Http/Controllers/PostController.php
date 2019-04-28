@@ -112,25 +112,9 @@ class PostController extends Controller
         $validatedData['user_id'] = $request->user()->id;
         $blogPost = BlogPost::create($validatedData);
 
-        $hasFile = $request->hasFile('thumbnail');
-        dump($hasFile);
-
-        if ($hasFile) {
-            $file = $request->file('thumbnail');
-            dump($file);
-            dump($file->getClientMimeType());
-            dump($file->getClientOriginalExtension());
-
-            dump($file->store('thumbails'));
-            dump(Storage::disk('public')->putFile('thumbails', $file));
-
-            $name1 = $file->storeAs('thumbails', $blogPost->id . '.'. $file->guessExtension());
-            $name2 = Storage::disk('local')->putFileAs('thumbails', $file, $blogPost->id . '.' . $file->guessExtension());
-
-            dump(Storage::url($name1));
-            dump(Storage::disk('local')->url($name2));
+        if ($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('thumbnails');
         }
-        die;
 
         $request->session()->flash('status', 'Blog post was created!');
 
