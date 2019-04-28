@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    protected $fillable = ['path'];
+    protected $fillable = ['path', 'blog_post_id'];
 
     public function blogPost()
     {
-        return $this->hasOne('App\BlogPost');
+        return $this->belongsTo('App\BlogPost');
     }
 }

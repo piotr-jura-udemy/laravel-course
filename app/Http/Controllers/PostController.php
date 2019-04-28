@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use App\Image;
 
 // [
 //     'show' => 'view',
@@ -114,6 +115,9 @@ class PostController extends Controller
 
         if ($request->hasFile('thumbnail')) {
             $path = $request->file('thumbnail')->store('thumbnails');
+            $blogPost->image()->save(
+                Image::create(['path' => $path])
+            );
         }
 
         $request->session()->flash('status', 'Blog post was created!');
