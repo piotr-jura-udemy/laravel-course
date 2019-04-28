@@ -12,6 +12,8 @@
 
         <p>{{ $post->content }}</p>
 
+        <img src="{{ $post->image->url() }}" />
+
         @updated(['date' => $post->created_at, 'name' => $post->user->name])
         @endupdated
         @updated(['date' => $post->updated_at])
