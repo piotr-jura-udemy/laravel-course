@@ -1,6 +1,6 @@
 @extends('layout') 
 @section('content')
-<h1>Edit Profile</h1>
+
 <form class="form-horizontal" 
     method="POST" enctype="multipart/form-data"
     action="{{ route('users.update', ['user' => $user->id]) }}">
@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-md-4">    
-            <img src="https://www.systmoneusergroup.co.uk/wp-content/uploads/2015/10/blank_profile.png" 
+            <img src="{{ $user->image ? $user->image->url() : '' }}" 
                 class="img-thumbnail avatar">
             
             <div class="card mt-4">

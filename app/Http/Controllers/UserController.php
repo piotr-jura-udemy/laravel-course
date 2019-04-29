@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Image;
 
 class UserController extends Controller
 {
@@ -77,8 +78,16 @@ class UserController extends Controller
     {
         if ($request->hasFile('avatar')) {
             $path = $request->file('avatar')->store('avatars');
-            dd($path);
+
+            if ($user->image) {
+                $user->image->path = $path;
+                $user->image->save();
+            } else {
+                $user->image()->save(Image::make(['path' => $path]));
+            }
         }
+
+        return redirect()->back()->withStatus('Profile image was updated');
     }
 
     /**
