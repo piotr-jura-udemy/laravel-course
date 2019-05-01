@@ -39,7 +39,9 @@ class PostTest extends TestCase
         // Arrange
         $post = $this->createDummyBlogPost();
         factory(Comment::class, 4)->create([
-            'blog_post_id' => $post->id,
+            'commentable_id' => $post->id,
+            'commentable_type' => 'App\BlogPost',
+            'user_id' => $this->user()->id
         ]);
 
         $response = $this->get('/posts');

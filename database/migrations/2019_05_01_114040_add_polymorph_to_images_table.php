@@ -16,7 +16,12 @@ class AddPolymorphToImagesTable extends Migration
         Schema::table('images', function (Blueprint $table) {
             $table->dropColumn('blog_post_id');
 
-            $table->morphs('imageable');
+            if (env('DB_CONNECTION') !== 'sqlite_testing') {
+                $table->morphs('imageable');
+            } else {
+                $table->unsignedBigInteger('imageable_id')->default(0);
+                $table->string('imageable_type')->default('');
+            }    
         });
     }
 

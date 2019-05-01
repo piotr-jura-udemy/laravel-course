@@ -23,7 +23,8 @@ class CommentsTableSeeder extends Seeder
         $users = App\User::all();
         
         factory(App\Comment::class, $commentsCount)->make()->each(function ($comment) use ($posts, $users) {
-            $comment->blog_post_id = $posts->random()->id;
+            $comment->commentable_id = $posts->random()->id;
+            $comment->commentable_type = App\BlogPost::class;
             $comment->user_id = $users->random()->id;
             $comment->save();
         });
