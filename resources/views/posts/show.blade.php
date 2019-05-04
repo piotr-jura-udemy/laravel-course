@@ -34,17 +34,11 @@
 
         <h4>Comments</h4>
 
-        @include('comments._form')
+        @commentForm(['route' => route('posts.comments.store', ['post' => $post->id])])
+        @endcommentForm
 
-        @forelse($post->comments as $comment)
-            <p>
-                {{ $comment->content }}
-            </p>
-            @updated(['date' => $comment->created_at, 'name' => $comment->user->name])
-            @endupdated
-        @empty
-            <p>No comments yet!</p>
-        @endforelse
+        @commentList(['comments' => $post->comments])
+        @endcommentList
     </div>
     <div class="col-4">
         @include('posts._activity')
