@@ -29,6 +29,7 @@
         <env name="MAIL_DRIVER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
-        <env name="DB_CONNECTION" value="sqlite_testing"/>
+        <env name="DB_CONNECTION" value="mysql_testing"/>
+        <env name="DB_DATABASE" value="laravel_testing"/>
     </php>
 </phpunit>
