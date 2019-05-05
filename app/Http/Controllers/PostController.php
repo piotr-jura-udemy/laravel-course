@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use App\Image;
+use App\Tag;
 
 // [
 //     'show' => 'view',
@@ -112,11 +113,6 @@ class PostController extends Controller
         $validatedData = $request->validated();
         $validatedData['user_id'] = $request->user()->id;
         $blogPost = BlogPost::create($validatedData);
-
-        $matches = [];
-        $tags = preg_match_all('/@[^@]+@/gm', $validatedData['content'], $matches);
-
-        dd($tags);
 
         if ($request->hasFile('thumbnail')) {
             $path = $request->file('thumbnail')->store('thumbnails');
