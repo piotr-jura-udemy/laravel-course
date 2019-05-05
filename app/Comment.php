@@ -23,6 +23,11 @@ class Comment extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function tags()
+    {
+        return $this->morphToMany('App\Tag', 'taggable');
+    }
+
     public function scopeLatest(Builder $query)
     {
         return $query->orderBy(static::CREATED_AT, 'desc');
