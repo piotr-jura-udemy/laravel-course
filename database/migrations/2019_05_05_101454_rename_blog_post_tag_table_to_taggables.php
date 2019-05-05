@@ -16,11 +16,13 @@ class RenameBlogPostTagTableToTaggables extends Migration
         Schema::table('blog_post_tag', function (Blueprint $table) {
             $table->dropForeign(['blog_post_id']);
             $table->dropColumn('blog_post_id');
-
-            $table->morphs('taggable');
         });
 
         Schema::rename('blog_post_tag', 'taggables');
+
+        Schema::table('taggables', function (Blueprint $table) {
+            $table->morphs('taggable');
+        });
     }
 
     /**
@@ -32,10 +34,19 @@ class RenameBlogPostTagTableToTaggables extends Migration
     {
         Schema::table('taggables', function (Blueprint $table) {
             $table->dropMorphs('taggable');
-
-            $table->unsignedInteger('blog_post_id')->index()->default(1);
         });
 
         Schema::rename('taggables', 'blog_post_tag');
+
+        Schema::disableForeignKeyConstraints();
+
+        Schema::table('blog_post_tag', function (Blueprint $table) {
+            $table->unsignedInteger('blog_post_id')->index();
+            $table->foreign('blog_post_id')->references('id')
+                ->on('blog_posts')
+                ->onDelete('cascade');
+        });
+
+        Schema::enableForeignKeyConstraints();
     }
 }

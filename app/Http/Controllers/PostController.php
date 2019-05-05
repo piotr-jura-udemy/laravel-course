@@ -113,6 +113,11 @@ class PostController extends Controller
         $validatedData['user_id'] = $request->user()->id;
         $blogPost = BlogPost::create($validatedData);
 
+        $matches = [];
+        $tags = preg_match_all('/@[^@]+@/gm', $validatedData['content'], $matches);
+
+        dd($tags);
+
         if ($request->hasFile('thumbnail')) {
             $path = $request->file('thumbnail')->store('thumbnails');
             $blogPost->image()->save(
