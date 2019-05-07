@@ -23,7 +23,7 @@ class PostCommentController extends Controller
         ]);
 
         Mail::to($post->user)->send(
-            new CommentPostedMarkdown()
+            new CommentPostedMarkdown($comment)
         );
 
         return redirect()->back()
