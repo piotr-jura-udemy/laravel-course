@@ -8,6 +8,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Comment;
+use App\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CommentPostedOnPostWatched;
 
 class NotifyUsersPostWasCommented implements ShouldQueue
 {
@@ -32,6 +35,14 @@ class NotifyUsersPostWasCommented implements ShouldQueue
      */
     public function handle()
     {
-        //
+        User::thatHasCommentedOnPost($this->comment->commentable)
+            ->get()
+            ->filter(function (User $user) {
+                return $user->id !== $this->comment->user_id;
+            })->map(function (User $user) {
+                Mail::to($user)->send(
+                    new CommentPostedOnPostWatched($this->comment, $user)
+                );
+            });
     }
 }
