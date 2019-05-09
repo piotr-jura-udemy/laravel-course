@@ -28,14 +28,14 @@ class PostCommentController extends Controller
 
         $when = now()->addMinutes(1);
 
-        // Mail::to($post->user)->queue(
-        //     new CommentPostedMarkdown($comment)
-        // );
-
-        Mail::to($post->user)->later(
-            $when,
+        Mail::to($post->user)->queue(
             new CommentPostedMarkdown($comment)
         );
+
+        // Mail::to($post->user)->later(
+        //     $when,
+        //     new CommentPostedMarkdown($comment)
+        // );
 
         return redirect()->back()
             ->withStatus('Comment was created!');
