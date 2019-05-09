@@ -9,6 +9,8 @@ Someone has commented on your blog post
 View The Blog Post
 @endcomponent
 
+You won't see this text!
+
 @component('mail::button', ['url' => route('users.show', ['user' => $comment->user->id])])
 Visit {{ $comment->user->name }} profile
 @endcomponent
