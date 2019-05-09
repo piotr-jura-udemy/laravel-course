@@ -39,10 +39,7 @@ class NotifyUsersPostWasCommented implements ShouldQueue
             ->get()
             ->each(function (User $user) {
                 Mail::to($user)->send(
-                    new CommentPostedOnPostWatched(
-                        $this->comment,
-                        $user
-                    )
+                    new CommentPostedOnPostWatched($this->comment, $user)
                 );
             });
     }

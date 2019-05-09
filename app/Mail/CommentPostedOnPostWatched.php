@@ -24,7 +24,6 @@ class CommentPostedOnPostWatched extends Mailable implements ShouldQueue
     public function __construct(Comment $comment, User $user)
     {
         $this->comment = $comment;
-        $this->user = $user;
     }
 
     /**
