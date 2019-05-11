@@ -6,6 +6,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use App\Http\ViewComposers\ActivityComposer;
 use Illuminate\Support\Facades\Schema;
+use App\BlogPost;
+use App\Observers\BlogPostObserver;
+use App\Comment;
+use App\Observers\CommentObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
 
         // view()->composer('*', ActivityComposer::class);
         view()->composer(['posts.index', 'posts.show'], ActivityComposer::class);
+
+        BlogPost::observe(BlogPostObserver::class);
+        Comment::observe(CommentObserver::class);
     }
 
     /**
