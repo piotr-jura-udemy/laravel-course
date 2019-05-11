@@ -16,6 +16,9 @@ class ThrottledMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $tries = 15;
+    public $timeout = 10;
+
     public $user;
     public $mail;
 
