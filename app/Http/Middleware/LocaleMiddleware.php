@@ -20,15 +20,13 @@ class LocaleMiddleware
     {
         $locale = null;
 
-        if (Auth::check()) {
+        if (Auth::check() && !Session::has('locale')) {
             $locale = $request->user()->locale;
+            Session::put('locale', $locale);
         }
 
         if ($request->has('locale')) {
             $locale = $request->get('locale');
-        }
-
-        if (null !== $locale) {
             Session::put('locale', $locale);
         }
         
