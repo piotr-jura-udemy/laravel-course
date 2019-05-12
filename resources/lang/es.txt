@@ -1,0 +1,32 @@
+¡Bienvenido a Laravel!
+Publicaciones de blog
+Añadir
+Casa
+Contacto
+Registro
+Iniciar sesión
+Cerrar sesión
+Más comentado
+Mas activo
+El mes pasado más activo
+Lo que la gente está hablando actualmente
+Escritores con más publicaciones escritas
+Adicional
+Actualizado
+por
+Comentarios
+Registrarse
+para publicar comentarios!
+Hola este es el contacto!
+Email
+Contraseña
+Recuérdame
+¡Iniciar sesión!
+Título
+Contenido
+Miniatura
+¡Crear!
+Agregar comentario
+Nombre:
+Sube una foto diferente
+Guardar cambios
