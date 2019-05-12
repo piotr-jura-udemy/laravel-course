@@ -8,6 +8,8 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Events\CommentPosted;
 use App\Listeners\NotifyUsersAboutComment;
+use App\Events\BlogPostPosted;
+use App\Listeners\NotifyAdminWhenBlogPostCreated;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CommentPosted::class => [
             NotifyUsersAboutComment::class
+        ],
+        BlogPostPosted::class => [
+            NotifyAdminWhenBlogPostCreated::class
         ]
     ];
 
