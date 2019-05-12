@@ -6,6 +6,8 @@
         
         @include('posts._form')
 
-        <button type="submit" class="btn btn-primary btn-block">Create!</button>
+        <button type="submit" class="btn btn-primary btn-block">
+            {{ _('Create!') }}
+        </button>
     </form>
 @endsection

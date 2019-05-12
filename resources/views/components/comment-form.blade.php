@@ -7,11 +7,11 @@
                 <textarea type="text" name="content" class="form-control"></textarea>
             </div>
     
-            <button type="submit" class="btn btn-primary btn-block">Add comment</button>
+            <button type="submit" class="btn btn-primary btn-block">{{ __('Add comment') }}</button>
         </form>
         @errors @enderrors
     @else
-        <a href="{{ route('login') }}">Sign-in</a> to post comments!
+        <a href="{{ route('login') }}">{{ __('Sign-in') }}</a> {{ __('to post comments!') }}
     @endauth
     </div>
     <hr/>

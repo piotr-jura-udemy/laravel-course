@@ -24,14 +24,14 @@
             @if($post->comments_count)
                 <p>{{ $post->comments_count }} comments</p>
             @else
-                <p>No comments yet!</p>
+                <p>{{ __('No comments yet!') }}</p>
             @endif
 
             @auth
                 @can('update', $post)
                     <a href="{{ route('posts.edit', ['post' => $post->id]) }}"
                         class="btn btn-primary">
-                        Edit
+                        {{ __('Edit') }}
                     </a>
                 @endcan
             @endauth
@@ -48,14 +48,15 @@
                             @csrf
                             @method('DELETE')
 
-                            <input type="submit" value="Delete!" class="btn btn-primary"/>
+                            <input type="submit" value="{{ __('Delete!') }}" 
+                                class="btn btn-primary"/>
                         </form>
                     @endcan
                 @endif
             @endauth
         </p>
     @empty
-        <p>No blog posts yet!</p>
+        <p>{{ __('No blog posts yet!') }}</p>
     @endforelse
     </div>
     <div class="col-4">
