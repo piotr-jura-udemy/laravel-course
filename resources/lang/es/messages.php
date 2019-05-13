@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'people.reading' => '{0} Actualmente leído por nadie|{1} Actualmente leído por :n persona|[2,*] Actualmente leído por :n personas'
+    'people.reading' => '{0} Actualmente leído por nadie|{1} Actualmente leído por :n persona|[2,*] Actualmente leído por :n personas',
+    'comments' => '{0} Sin comentarios aún|{1} :n comentario|[2,*] :n comentarios'
 ];

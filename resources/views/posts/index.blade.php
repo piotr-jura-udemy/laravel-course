@@ -21,11 +21,9 @@
 
             @tags(['tags' => $post->tags])@endtags
 
-            @if($post->comments_count)
-                <p>{{ $post->comments_count }} comments</p>
-            @else
-                <p>{{ __('No comments yet!') }}</p>
-            @endif
+            <p>
+                {{ trans_choice('messages.comments', $post->comments_count, ['n' => $post->comments_count]) }}
+            </p>
 
             @auth
                 @can('update', $post)
