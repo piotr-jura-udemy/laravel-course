@@ -34,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
 
         BlogPost::observe(BlogPostObserver::class);
         Comment::observe(CommentObserver::class);
+
+        $this->app->bind(
+            'App\Contracts\Counter',
+            'App\Service\DummyCounter'
+        );
     }
 
     /**

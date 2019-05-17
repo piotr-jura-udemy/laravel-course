@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUser;
 use App\Image;
+use App\Facade\Counter;
 
 class UserController extends Controller
 {
@@ -54,7 +55,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', ['user' => $user]);
+        return view('users.show', [
+            'user' => $user,
+            'counter' => Counter::increment("user-{$user->id}")
+        ]);
     }
 
     /**
