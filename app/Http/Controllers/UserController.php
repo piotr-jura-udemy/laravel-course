@@ -55,7 +55,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $counter = new Counter();
+        $counter = resolve(Counter::class);
 
         return view('users.show', [
             'user' => $user,

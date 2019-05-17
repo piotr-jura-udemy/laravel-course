@@ -10,6 +10,7 @@ use App\BlogPost;
 use App\Observers\BlogPostObserver;
 use App\Comment;
 use App\Observers\CommentObserver;
+use App\Services\Counter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
 
         BlogPost::observe(BlogPostObserver::class);
         Comment::observe(CommentObserver::class);
+
+        $this->app->singleton(Counter::class, function ($app) {
+            return new Counter(env('COUNTER_TIMEOUT'));
+        });
     }
 
     /**
