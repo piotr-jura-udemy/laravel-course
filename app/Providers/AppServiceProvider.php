@@ -44,6 +44,11 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        $this->app->bind(
+            'App\Contracts\CounterContract',
+            'App\Services\Counter'
+        );
+
         // $this->app->when(Counter::class)
         //     ->needs('$timeout')
         //     ->give(env('COUNTER_TIMEOUT'));
