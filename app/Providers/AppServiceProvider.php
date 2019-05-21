@@ -11,6 +11,7 @@ use App\Observers\BlogPostObserver;
 use App\Comment;
 use App\Observers\CommentObserver;
 use App\Services\Counter;
+use App\Services\DummyCounter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,6 +44,16 @@ class AppServiceProvider extends ServiceProvider
                 env('COUNTER_TIMEOUT')
             );
         });
+
+        $this->app->bind(
+            'App\Contracts\CounterContract',
+            Counter::class
+        );
+
+        // $this->app->bind(
+        //     'App\Contracts\CounterContract',
+        //     DummyCounter::class
+        // );
 
         // $this->app->when(Counter::class)
         //     ->needs('$timeout')

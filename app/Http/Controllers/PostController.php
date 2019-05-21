@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use App\Image;
 use App\Events\BlogPostPosted;
-use App\Services\Counter;
+use App\Contracts\CounterContract;
 
 // [
 //     'show' => 'view',
@@ -23,7 +23,7 @@ class PostController extends Controller
 {
     private $counter;
 
-    public function __construct(Counter $counter)
+    public function __construct(CounterContract $counter)
     {
         $this->middleware('auth')
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
