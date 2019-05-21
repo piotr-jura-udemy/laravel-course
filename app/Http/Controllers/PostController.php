@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use App\Image;
 use App\Events\BlogPostPosted;
-use App\Contracts\CounterContract;
+use App\Facades\CounterFacade;
 
 // [
 //     'show' => 'view',
@@ -21,14 +21,11 @@ use App\Contracts\CounterContract;
 // ]
 class PostController extends Controller
 {
-    private $counter;
-
-    public function __construct(CounterContract $counter)
+    public function __construct()
     {
         $this->middleware('auth')
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
         // $this->middleware('locale');
-        $this->counter = $counter;
     }
 
     /**
@@ -62,7 +59,7 @@ class PostController extends Controller
 
         return view('posts.show', [
             'post' => $blogPost,
-            'counter' => $this->counter->increment("blog-post-{$id}", ['blog-post']),
+            'counter' => CounterFacade::increment("blog-post-{$id}", ['blog-post']),
         ]);
     }
 
