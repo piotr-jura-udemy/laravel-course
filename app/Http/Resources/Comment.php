@@ -20,7 +20,8 @@ class Comment extends JsonResource
             'author' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name
-            ]
+            ],
+            'created_at' => $this->created_at->toATOMString()
         ];
     }
 }

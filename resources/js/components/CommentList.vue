@@ -1,24 +1,29 @@
 <template>
   <div>
-    <div v-for="comment in comments" :key="comment.id">
+    <div v-for="comment in commentsWithUrls" :key="comment.id">
       <p>{{ comment.content }}</p>
-      <p class="text-muted">Added x by {{ comment.author.name }}</p>
+      <p class="text-muted">
+        Added {{ comment.created_at }} by
+        <a :href="comment.authorUrl">{{ comment.author.name }}</a>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  props: ["post"],
+  props: {
+    post: Number
+  },
   data: function() {
     return {
-      comments: []
+      comments: [],
+      routes: route().current()
     };
   },
   methods: {
     load: function() {
+      console.log(this.post);
       axios
         .get(`/api/v1/posts/${this.post}/comments`)
         .then(res => {
@@ -28,8 +33,16 @@ export default {
         .catch(err => console.log("Failed to load comments"));
     }
   },
+  computed: {
+    commentsWithUrls: function() {
+      return this.comments.map(comment => ({
+        ...comment,
+        created_at: moment(comment.created_at).fromNow(),
+        authorUrl: route("users.show", { id: comment.author.id })
+      }));
+    }
+  },
   mounted: function() {
-    console.log("hi");
     this.load();
   }
 };
