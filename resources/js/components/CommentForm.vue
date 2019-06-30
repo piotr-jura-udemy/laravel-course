@@ -1,7 +1,14 @@
 <template>
   <div>
     <div class="form-group">
-      <textarea type="text" name="content" class="form-control" v-model="content" :class="{'is-invalid': errors.content}"></textarea>
+      <textarea
+        type="text"
+        name="content"
+        class="form-control"
+        v-model="content"
+        :class="{'is-invalid': errors.content}"
+        @keyup="typing"
+      ></textarea>
       <div class="invalid-feedback" v-if="errors.content">{{ errors.content[0] }}</div>
     </div>
 
@@ -16,7 +23,9 @@
 export default {
   props: {
     url: String,
-    submitLabel: String
+    submitLabel: String,
+    post: Number,
+    user: Object
   },
   data: function() {
     return {
@@ -40,6 +49,16 @@ export default {
           this.sending = false;
           this.errors = err.response.data.errors;
         });
+    },
+    typing: function () {
+      console.log({
+        post: this.post,
+        username: this.user.name
+      });
+      Echo.private('comments.typing').whisper('typing', {
+        post: this.post,
+        name: this.user.name
+      });
     }
   }
 };

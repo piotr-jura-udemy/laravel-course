@@ -6,8 +6,7 @@
 
 <div class="form-group">
     <label>{{ __('Content') }}</label>
-    <textarea type="text" name="content" class="form-control" rows="20"
-        value="{{ old('content', $post->content ?? null) }}"></textarea>
+    <textarea type="text" name="content" class="form-control" rows="20">{{ old('content', $post->content ?? null) }}</textarea>
 </div>
 
 <div class="form-group">

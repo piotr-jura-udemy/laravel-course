@@ -1,5 +1,16 @@
 <template>
   <div>
+    <div v-if="this.typing.length > 0">
+      <div class="card mb-2">
+        <div class="card-body text-center text-muted">
+          {{ this.typingText }} typing
+          <i class="far fa-circle fa-pulse fa-sm"></i>
+          <i class="far fa-circle fa-pulse fa-sm"></i>
+          <i class="far fa-circle fa-pulse fa-sm"></i>
+        </div>
+      </div>
+    </div>
+
     <div v-if="commentsWithUrls.length">
       <div v-for="comment in commentsWithUrls" :key="comment.id">
         <div class="card mb-2">
@@ -34,6 +45,7 @@ export default {
   data: function() {
     return {
       comments: [],
+      typing: [],
       routes: route().current(),
       loading: false,
       error: false
@@ -41,9 +53,9 @@ export default {
   },
   methods: {
     load: function() {
-      console.log(this.post);
       this.error = false;
       this.loading = true;
+
       setTimeout(() => {
         axios
           .get(`/api/v1/posts/${this.post}/comments`)
@@ -60,7 +72,6 @@ export default {
       }, 1000);
     },
     addComment: function(comment) {
-      console.log(comment);
       this.comments.unshift(comment);
     }
   },
@@ -71,14 +82,55 @@ export default {
         created_at: moment(comment.created_at).fromNow(),
         authorUrl: route("users.show", { id: comment.author.id })
       }));
+    },
+    typingText: function() {
+      if (0 === this.typing.length) {
+        return "";
+      }
+
+      if ([1, 2].includes(this.typing.length)) {
+        return this.typing.join(", ");
+      }
+
+      return (
+        this.typing.slice(0, 2).join(", ") +
+        " and " +
+        (this.typing.length - 2) +
+        " others "
+      );
     }
   },
   mounted: function() {
     this.load();
+
     Echo.channel(`post.${this.post}`).listen(".comment.posted", e => {
       this.addComment(e);
+
+      if (this.typingTimeouts[e.author.name]) {
+        clearTimeout(this.typingTimeouts[e.author.name]);
+        this.typing = this.typing.filter(typingPerson => typingPerson != e.author.name);
+      }
+    });
+
+    Echo.private("comments.typing").listenForWhisper("typing", e => {
+      if (e.post == this.post) {
+        this.typing = [...new Set(this.typing.concat(e.name))];
+
+        if (this.typingTimeouts[e.name]) {
+          clearTimeout(this.typingTimeouts[e.name]);
+        }
+
+        const vm = this;
+
+        this.typingTimeouts[e.name] = setTimeout(function() {
+          vm.typing = vm.typing.filter(typingPerson => typingPerson != e.name);
+        }, 40000);
+      }
     });
     EventBus.$on("comment-posted", this.addComment);
+  },
+  created: function() {
+    this.typingTimeouts = {};
   }
 };
 </script>
