@@ -21,7 +21,8 @@ class Comment extends JsonResource
                 'id' => $this->user->id,
                 'name' => $this->user->name
             ],
-            'created_at' => $this->created_at->toATOMString()
+            'created_at' => $this->created_at->toATOMString(),
+            'post_id' => $this->commentable->id
         ];
     }
 }

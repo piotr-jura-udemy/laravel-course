@@ -21,9 +21,12 @@
         "sass": "^1.21.0",
         "sass-loader": "^7.1.0",
         "vue": "^2.6.10",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "@fortawesome/fontawesome-free": "^5.9.0"
     },
     "dependencies": {
-        "moment": "^2.24.0"
+        "laravel-echo": "^1.5.4",
+        "moment": "^2.24.0",
+        "pusher-js": "^4.4.0"
     }
 }

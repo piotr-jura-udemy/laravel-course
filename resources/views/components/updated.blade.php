@@ -1,4 +1,5 @@
 <p class="text-muted">
+    <i class="far fa-clock"></i>
     {{ empty(trim($slot)) ? __('Added') : $slot }} {{ $date->diffForHumans() }}
     @if(isset($name))
         @if(isset($userId))

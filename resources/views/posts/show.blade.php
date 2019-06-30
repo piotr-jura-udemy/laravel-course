@@ -35,13 +35,17 @@
 
         <h4>{{ __('Comments') }}</h4>
 
-        @commentForm(['route' => route('posts.comments.store', ['post' => $post->id])])
-        @endcommentForm
+        {{-- @commentForm(['route' => route('posts.comments.store', ['post' => $post->id])])
+        @endcommentForm --}}
+
+        <comment-form url="{{ route('posts.comments.store', ['post' => $post->id]) }}"
+            submit-label="{{ __('Add comment') }}"></comment-form>
+        <hr/>
 
         {{-- @commentList(['comments' => $post->comments])
         @endcommentList --}}
 
-        <comment-list :post="{{ $post->id }}"></comment-list>
+        <comment-list :post="{{ $post->id }}" v-on:comment-posted="console.log('shit');"></comment-list>
     </div>
     <div class="col-4">
         @include('posts._activity')
