@@ -50,16 +50,30 @@ export default {
           this.errors = err.response.data.errors;
         });
     },
-    typing: function () {
-      console.log({
-        post: this.post,
-        username: this.user.name
-      });
-      Echo.private('comments.typing').whisper('typing', {
-        post: this.post,
-        name: this.user.name
-      });
+    typing: function() {
+      console.log(this.typingTimeout);
+      const callback = () => {
+        console.log("Notifying about typing...");
+        Echo.private("comments.typing").whisper("typing", {
+          post: this.post,
+          name: this.user.name
+        });
+        this.typingTimeout = null;
+      };
+
+      if (this.typingTimeout !== null) {
+        clearTimeout(this.typingTimeout);
+        this.typingTimeout = setTimeout(callback, 500);
+        return;
+      }
+
+      callback();
+      this.typingTimeout = setTimeout(() => {}, 1000);
     }
+  },
+  created: function() {
+    console.log("Created the component...");
+    this.typingTimeout = null;
   }
 };
 </script>

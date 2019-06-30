@@ -36,10 +36,13 @@
         {{-- @commentForm(['route' => route('posts.comments.store', ['post' => $post->id])])
         @endcommentForm --}}
 
+        @auth
         <comment-form url="{{ route('posts.comments.store', ['post' => $post->id]) }}"
-            submit-label="{{ __('Add comment') }}"
-            :user="{{ Auth::user() }}"
-            :post={{ $post->id }}></comment-form>
+            submit-label="{{ __('Add comment') }}" :user="{{ Auth::user() }}" :post={{ $post->id }}></comment-form>
+        @else
+        <a href="{{ route('login') }}">{{ __('Sign-in') }}</a> {{ __('to post comments!') }}
+        @endauth
+
         <hr />
 
         {{-- @commentList(['comments' => $post->comments])

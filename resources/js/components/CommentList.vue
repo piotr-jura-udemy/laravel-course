@@ -28,7 +28,7 @@
       </div>
     </div>
     <div v-else>
-      <div v-if="this.loading && !this.error">
+      <div v-if="this.loading && !this.error" class="text-center">
         <i class="fas fa-sync fa-spin fa-3x"></i>
       </div>
       <div v-if="!this.loading && !this.error">No comments yet!</div>
@@ -124,7 +124,7 @@ export default {
 
         this.typingTimeouts[e.name] = setTimeout(function() {
           vm.typing = vm.typing.filter(typingPerson => typingPerson != e.name);
-        }, 40000);
+        }, 6000);
       }
     });
     EventBus.$on("comment-posted", this.addComment);
