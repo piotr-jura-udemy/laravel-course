@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="this.typing.length > 0">
+    <div v-if="typing.length > 0">
       <div class="card mb-2">
         <div class="card-body text-center text-muted">
-          {{ this.typingText }} typing
+          {{ typingText }} typing
           <i class="far fa-circle fa-pulse fa-sm"></i>
           <i class="far fa-circle fa-pulse fa-sm"></i>
           <i class="far fa-circle fa-pulse fa-sm"></i>
@@ -28,11 +28,11 @@
       </div>
     </div>
     <div v-else>
-      <div v-if="this.loading && !this.error" class="text-center">
+      <div v-if="loading && !error" class="text-center">
         <i class="fas fa-sync fa-spin fa-3x"></i>
       </div>
-      <div v-if="!this.loading && !this.error">No comments yet!</div>
-      <div v-if="this.error">Error loading comments!</div>
+      <div v-if="!loading && !error">No comments yet!</div>
+      <div v-if="error">Error loading comments!</div>
     </div>
   </div>
 </template>
@@ -40,7 +40,8 @@
 <script>
 export default {
   props: {
-    post: Number
+    post: Number,
+    postId: String
   },
   data: function() {
     return {
@@ -108,7 +109,9 @@ export default {
 
       if (this.typingTimeouts[e.author.name]) {
         clearTimeout(this.typingTimeouts[e.author.name]);
-        this.typing = this.typing.filter(typingPerson => typingPerson != e.author.name);
+        this.typing = this.typing.filter(
+          typingPerson => typingPerson != e.author.name
+        );
       }
     });
 

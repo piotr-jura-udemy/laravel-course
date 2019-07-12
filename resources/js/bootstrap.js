@@ -43,7 +43,6 @@ window.moment = require("moment");
 const locale = document.head.querySelector('meta[name="locale"]');
 
 if (locale) {
-    console.log(locale.content);
     window.moment.locale(locale.content);
 }
 
@@ -53,13 +52,13 @@ if (locale) {
  * allows your team to easily build robust real-time web applications.
  */
 
-import Echo from 'laravel-echo';
+import Echo from "laravel-echo";
 
-window.Pusher = require('pusher-js');
+window.Pusher = require("pusher-js");
 
 window.Echo = new Echo({
-    broadcaster: 'pusher',
+    broadcaster: "pusher",
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    encrypted: true
+    encrypted: true,
 });

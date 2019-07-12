@@ -1,23 +1,23 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card card-default">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div>
+    <div>
+      User name: {{ name }}
+      User id: {{ id }}
+      Is user enabled: {{ isEnabled }}
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+export default {
+  props: ["name", "id", "isEnabled"],
+  mounted: function() {
+    console.log(typeof this.name);
+    console.log(this.name);
+    console.log(typeof this.isEnabled);
+    console.log(this.isEnabled);
+    console.log(typeof this.id);
+    console.log(this.id);
+  }
+};
 </script>
