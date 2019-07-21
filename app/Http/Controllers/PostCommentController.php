@@ -19,7 +19,7 @@ class PostCommentController extends Controller
         // dump(is_array($post->comments));
         // dump(get_class($post->comments));
         // die;
-        return CommentResource::collection($post->comments);
+        return CommentResource::collection($post->comments()->with('user')->get());
         // return $post->comments()->with('user')->get();
     }
 
