@@ -17,7 +17,7 @@ class PostCommentController extends Controller
     public function index(BlogPost $post)
     {
         return CommentResource::collection(
-            $post->comments()->with('user')->get()
+            $post->comments()->with('user')->paginate(5)
         );
     }
 
