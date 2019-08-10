@@ -20,6 +20,7 @@ class ApiPostCommentsTest extends TestCase
         $response = $this->json('GET', 'api/v1/posts/1/comments');
 
         $response->assertStatus(200)
-            ->assertJson([]);
+            ->assertJsonStructure(['data', 'links', 'meta'])
+            ->assertJsonCount(0, 'data');
     }
 }
