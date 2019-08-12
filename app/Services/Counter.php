@@ -13,7 +13,7 @@ class Counter implements CounterContract
     private $session;
     private $supportsTags;
 
-    public function __construct(Cache $cache, Session $session, int $timeout)
+    public function __construct(Cache $cache, Session $session, $timeout)
     {
         $this->cache = $cache;
         $this->timeout = $timeout;
